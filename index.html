@@ -3,57 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Countdown</title>
+    <title>Event Invitation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f3f3f3;
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
             padding: 50px;
+            background-color: #f4f4f4;
         }
-        h1 {
-            font-size: 2.5em;
-            color: #333;
+        h1 { color: #333; }
+        img {
+            width: 100%; /* Makes the image responsive */
+            max-width: 600px; /* Limits the max size */
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
-        .countdown {
-            font-size: 3em;
-            color: #ff6347;
-        }
-        .details {
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
+        #countdown { font-size: 24px; font-weight: bold; color: red; }
     </style>
 </head>
 <body>
-    <h1>Wedding Invitation</h1>
-    <p class="details">Join us for the wedding of</p>
-    <p class="details"><strong>san</strong> & <strong>boop</strong></p>
-    <p class="details">Date: 02 & 03 Nov 2025</p>
-    <p class="details">Location: <a href="https://www.google.com/maps/place/NSN+Mahal/data=!4m7!3m6!1s0x3ba99f63be3fe4af:0x2ef065af076f3e96!8m2!3d11.0244368!4d77.5672937!16s%2Fg%2F11cn92wmfr!19sChIJr-Q_vmOfqTsRlj5vB69l8C4?authuser=0&hl=en&rclk=1" target="_blank">NSN Mahal</a></p>
+    <h1>You're Invited!</h1>
+    
+    <!-- Display Image -->
+    <img src="invitation.jpg" alt="Event Invitation">
 
-    <p class="countdown" id="timer"></p>
+    <p>📅 <strong>Date:</strong> March 15, 2025</p>
+    <p>📍 <strong>Location:</strong> New York City</p>
+    <p>⏳ <strong>Countdown:</strong> <span id="countdown"></span></p>
 
     <script>
-        // Set the wedding date (Nov 2, 2025)
-        var weddingDate = new Date("Nov 2, 2025 00:00:00").getTime();
+        function updateCountdown() {
+            const eventDate = new Date("March 15, 2025").getTime();
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            document.getElementById("countdown").innerText = days + " days left";
+        }
 
-        var countdownFunction = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = weddingDate - now;
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                document.getElementById("timer").innerHTML = "It's Time!"; // When the countdown finishes
-            }
-        }, 1000);
+        updateCountdown();
+        setInterval(updateCountdown, 1000 * 60 * 60 * 24);  // Update every day
     </script>
 </body>
 </html>
