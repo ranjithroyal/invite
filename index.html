@@ -3,76 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kabali's Birthday Invitation</title>
+    <title>Kabali's Birthday Countdown</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            color: #fff; /* White text for better visibility */
-            background: url('https://source.unsplash.com/1600x900/?birthday,celebration') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #f8f9fa;
         }
         h1 {
-            color: #ffcc00; /* Gold color */
-            text-shadow: 2px 2px 4px #000;
-        }
-        p {
-            font-size: 20px;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px #000;
+            color: #333;
         }
         #countdown {
             font-size: 24px;
             font-weight: bold;
-            color: #ff4081; /* Pink color */
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 10px;
-            display: inline-block;
+            color: #ff5733;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>🎉 You Are Invited to Kabali's Birthday! 🎂</h1>
+    <h1>🎂 You Are Invited to Kabali's Birthday! 🎉</h1>
     <p><strong>Date:</strong> April 18</p>
     <p><strong>Location:</strong> Kangayam</p>
-
+    
     <h2>⏳ Countdown to the Big Day!</h2>
-    <div id="countdown">Loading...</div>
+    <div id="countdown"></div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function updateCountdown() {
-                const countdownElement = document.getElementById("countdown");
-                if (!countdownElement) {
-                    console.error("Error: Countdown element not found!");
-                    return;
-                }
-    
-                const eventDate = new Date("April 18, 2024 00:00:00").getTime();
-                const now = new Date().getTime();
-                const timeLeft = eventDate - now;
-    
-                if (timeLeft > 0) {
-                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    
-                    countdownElement.innerHTML = 
-                        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
-                } else {
-                    countdownElement.innerHTML = "🎉 The birthday celebration has started! 🎊";
-                }
+        // Set the target date for the countdown (April 18, current year)
+        let targetDate = new Date(new Date().getFullYear(), 3, 18, 0, 0, 0); // Month is 0-indexed (3 = April)
+
+        function updateCountdown() {
+            let now = new Date();
+            let timeDifference = targetDate - now;
+
+            if (timeDifference <= 0) {
+                document.getElementById("countdown").innerHTML = "🎉 Happy Birthday, Kabali! 🎂";
+                return;
             }
-    
-            // Run immediately and update every second
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        });
+
+            let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial call to display countdown immediately
+        updateCountdown();
     </script>
-    
 
 </body>
 </html>
