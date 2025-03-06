@@ -8,23 +8,27 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #fce4ec;
-            color: #333;
+            color: #fff; /* White text for better visibility */
+            background: url('https://source.unsplash.com/1600x900/?birthday,celebration') no-repeat center center fixed;
+            background-size: cover;
         }
         h1 {
-            color: #d81b60;
+            color: #ffcc00; /* Gold color */
+            text-shadow: 2px 2px 4px #000;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px #000;
         }
         #countdown {
             font-size: 24px;
             font-weight: bold;
-            color: #d32f2f;
-            margin-top: 10px;
-        }
-        img {
-            width: 300px;
-            height: auto;
-            margin-top: 20px;
+            color: #ff4081; /* Pink color */
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
             border-radius: 10px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -34,11 +38,8 @@
     <p><strong>Date:</strong> April 18</p>
     <p><strong>Location:</strong> Kangayam</p>
 
-    <!-- Birthday Image -->
-    <img src="https://source.unsplash.com/400x300/?birthday,party,cake" alt="Birthday Celebration">
-
     <h2>⏳ Countdown to the Big Day!</h2>
-    <div id="countdown"></div>
+    <div id="countdown">Loading...</div>
 
     <script>
         function updateCountdown() {
@@ -46,19 +47,21 @@
             const now = new Date().getTime();
             const timeLeft = eventDate - now;
 
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = 
-                `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
-
-            if (timeLeft < 0) {
+                document.getElementById("countdown").innerHTML = 
+                    `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+            } else {
                 document.getElementById("countdown").innerHTML = "🎉 The birthday celebration has started! 🎊";
             }
         }
 
+        // Run immediately and update every second
+        updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
 
